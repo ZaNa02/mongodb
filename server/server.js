@@ -1,37 +1,52 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+mongoose.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true });
 
 var Todo = mongoose.model('Todo', {
   text: {
-    type: String  //it's always gonna be a text so string...
+    type: String,  //it's always gonna be a text so string...
+    required: true,
+    minlength: 1,
+    trim: true  //deletes any whitespaces or rather ignores them...
   },
   completed: {
-    type: Boolean  //it's either true or false...
+    type: Boolean,  //it's either true or false...
+    default: false
   },
   completedAt: {
-    type: Number // always gonna be a number
+    type: Number, // always gonna be a number
+    default: null
   }
 });
 
-// var newTodo = new Todo({
-//   text: 'Make dinner'
+// var anotherTodo = new Todo({
+//   text: '   NANANANA NANANANA BATMAN!!   '
 // });
-//
-// newTodo.save().then((doc) => {
-//   console.log('Saved todo', doc);
+// anotherTodo.save().then((doc) => {
+//   console.log(JSON.stringify(doc, undefined, 2));
 // }, (e) => {
 //   console.log('Unable to save todo')
 // });
 
-var anotherTodo = new Todo({
-  text: 'Eat your avocado',
-  completed: true,
-  completedAt: 11
+
+//User model
+// email - require it and trim it-set type and min length of 1
+var User = mongoose.model('User', {
+  email: {
+    type: String,  //it's always gonna be a text so string...
+    required: true,
+    minlength: 1,
+    trim: true  //deletes any whitespaces or rather ignores them...
+  }
 });
-anotherTodo.save().then((doc) => {
+
+var user = new User({
+  email: 'ania@gmail.com    '
+});
+
+user.save().then((doc) => {
   console.log(JSON.stringify(doc, undefined, 2));
 }, (e) => {
-  console.log('Unable to save todo')
+  console.log('Unable to create user', e);
 });
