@@ -11,10 +11,8 @@ var app = express();
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
-  console.log('initialising...');
   var todo = new Todo({
     text: req.body.text
-
   });
 
 
