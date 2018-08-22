@@ -26,14 +26,5 @@ app.post('/todos', (req, res) => {
 app.listen(3000, () => {
   console.log('Started on port 3000');
 });
-//User model
-// email - require it and trim it-set type and min length of 1
-// var user = new User({
-//   email: 'ania@gmail.com    '
-// });
-//
-// user.save().then((doc) => {
-//   console.log(JSON.stringify(doc, undefined, 2));
-// }, (e) => {
-//   console.log('Unable to create user', e);
-// });
+
+module.exports = {app};
